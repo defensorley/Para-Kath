@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Regalo de amor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#fff1f2; /* rose-50 */
+      --bg2:#fff; 
+      --accent:#e11d48; /* rose-600 */
+      --text:#1f2937; /* gray-800 */
+      --muted:#6b7280; /* gray-500 */
+      --card:#ffffffcc; /* white/80 */
+      --ring:#fecdd3; /* rose-200 */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; color:var(--text);
+      background: linear-gradient(180deg,var(--bg1),#ffe4e6 40%, var(--bg2));
+    }
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .hero{display:grid;gap:24px;grid-template-columns:1fr;align-items:center}
+    @media(min-width:900px){.hero{grid-template-columns:1.05fr .95fr}}
+    .pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;background:#ffe4e6;color:#9f1239;padding:8px 12px;border-radius:999px}
+    h1{font-size:clamp(28px,5vw,54px);margin:8px 0 6px;font-weight:800}
+    .accent{color:var(--accent)}
+    .muted{color:var(--muted)}
+    .btn{display:inline-flex;gap:8px;align-items:center;padding:10px 14px;border-radius:16px;background:white;border:1px solid #fff;box-shadow:0 8px 20px -12px rgba(0,0,0,.25);text-decoration:none;color:inherit}
+    .grid-photos{display:grid;gap:8px;grid-template-columns:repeat(3,1fr)}
+    .ph{position:relative;overflow:hidden;border-radius:16px;aspect-ratio:1/1}
+    .ph img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .section{margin:28px auto}
+    .card{background:var(--card); backdrop-filter: blur(6px); border:1px solid rgba(255,255,255,.5); padding:22px;border-radius:20px;box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
+    .section h2{display:flex;align-items:center;gap:10px;font-size:22px;margin:0 0 14px}
+
+    .timeline{position:relative;border-left:3px solid var(--ring);padding-left:16px}
+    .timeline .item{position:relative;margin:0 0 18px}
+    .timeline .item::before{content:"";position:absolute;left:-11px;top:4px;width:14px;height:14px;background:#fecdd3;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 2px #fecdd3}
+    .chip{display:inline-block;background:#fee2e2;color:#9f1239;padding:6px 10px;border-radius:999px;font-size:12px}
+
+    .gallery{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
+    @media(min-width:700px){.gallery{grid-template-columns:repeat(4,1fr)}}
+    .gallery a{border-radius:18px;overflow:hidden;display:block;aspect-ratio:4/5;border:1px solid rgba(255,255,255,.6);box-shadow:0 8px 20px -12px rgba(0,0,0,.25)}
+    .gallery img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .countdown{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .box{min-width:84px;text-align:center;padding:14px;border-radius:16px;background:#fff;border:1px solid rgba(255,255,255,.7);box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
+    .box .num{font-size:24px;font-weight:800}
+    .box .lab{font-size:12px;opacity:.7}
+
+    .video{position:relative;padding-top:56.25%;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.7);box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
+    .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    footer{padding:34px 0;text-align:center}
+
+    /* Corazones flotantes */
+    .hearts{pointer-events:none;position:fixed;inset:0;overflow:hidden;z-index:0}
+    .heart{position:absolute;width:18px;height:18px;fill:#fb7185;opacity:0;animation:float 9s linear infinite}
+    @keyframes float{0%{transform:translateY(0) scale(.9);opacity:0}10%{opacity:.9}80%{opacity:.9}100%{transform:translateY(-120vh) scale(1.1);opacity:0}}
+
+    /* header layer */
+    .layer{position:relative;z-index:1}
+  </style>
+</head>
+<body>
+  <!-- CONFIGURACIÓN RÁPIDA: edita estos valores -->
+  <script>
+    const CONFIG = {
+      parejaA: "Iván",
+      parejaB: "Katherine",
+      fraseCorta: "Contigo a mi lado, no necesito nada más.",
+      fechaEspecial: "2025-04-22", // YYYY-MM-DD
+      proximaFecha: "2025-09-22", // YYYY-MM-DD
+      carta: `Mi niña,\n\nSon 4 mesesitos con la chica más hermosa que pude haber conocido jamás, la chica que llegó a mi vida cual ángel para enseñarme lo que es el amor, aquella chica que me ha dado un nuevo propósito, una verdadera razón para seguir adelante.\n\nKatherine te agradezco tanto por estar para mí, por ser mi compañía en esta vida, por ser mi amiga, por ser mi pareja, por ser el motivo de mi sonrisa, por ser mi todo.\n\nTe amo con todo mi corazón, y quiero que seas tú quien me acompañe en esta vida. Y si hay más vidas, espero que tú también estés allí.`,
+      recuerdos:[
+        {fecha:"2025-04-01", titulo:"Nos conocimos", detalle:"Aquel momento en el que aún desconocía lo mucho que cambiarías mi vida."},
+        {fecha:"2025-04-22", titulo:"Noviazgo", detalle:"Los sentimientos eran cada vez más intensos, y decidimos dar el siguiente paso."},
+        {fecha:"2025-05-22", titulo:"Primer mes", detalle:"Un mesesito lleno de diferentes emociones y momentos que vivimos juntos."},
+        {fecha:"2025-08-01", titulo:"Día de la novia", detalle:"Un día especial para elogiar lo maravillosa que eres? Perfecto."},
+      ],
+      fotos:[
+        "https://i.pinimg.com/736x/a1/03/b9/a103b91268e96c497ec8c4ecad60f869.jpg",
+        "https://i.pinimg.com/736x/79/5a/cd/795acd2c75ef19c843c0b41c9e7ed6f0.jpg",
+        "https://i.pinimg.com/1200x/c8/f3/06/c8f30654a08fb83622c27a95b8fe556a.jpg",
+        "https://i.pinimg.com/736x/c2/fa/24/c2fa24323b16aafe71d4aeb413602d77.jpg",
+        "https://i.pinimg.com/736x/af/35/86/af35862d7d7ea8dfaf59703240d9c04c.jpg",
+        "https://i.pinimg.com/1200x/58/35/e1/5835e1a60fae3bc8817b8f7f952f40e1.jpg"
+      ],
+      youtubeEmbed: "https://www.youtube.com/embed/ZThpzD0UzsY?list=RDZThpzD0UzsY&start_radio=1"
+    };
+  </script>
+
+  <!-- Corazones flotantes -->
+  <svg class="hearts" aria-hidden="true">
+    <defs>
+      <symbol id="heart" viewBox="0 0 24 24"><path d="M12 21s-6.716-4.297-9.428-7.01A6.5 6.5 0 1 1 12 5.07a6.5 6.5 0 1 1 9.428 8.92C18.716 16.703 12 21 12 21z"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="container layer">
+    <header class="hero section">
+      <div>
+        <span class="pill" id="pill-fecha">Desde …</span>
+        <h1 id="titulo">A ♥ B</h1>
+        <p class="muted" id="frase">Frase corta aquí</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <a class="btn" href="#recuerdos">📸 Ver galería</a>
+          <a class="btn" href="#carta">💌 Leer carta</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="grid-photos" id="grid-fotos"></div>
+        <p class="muted" style="font-size:12px;margin-top:8px"></p>
+      </div>
+    </header>
+
+    <section id="carta" class="section card">
+      <h2>💌 Una carta para ti</h2>
+      <p id="carta-texto" style="white-space:pre-wrap;line-height:1.7"></p>
+    </section>
+
+    <section id="recuerdos" class="section card">
+      <h2>🗓️ Nuestra línea del tiempo</h2>
+      <div class="timeline" id="lista-recuerdos"></div>
+    </section>
+
+    <section class="section card">
+      <h2>🖼️ Galería</h2>
+      <div class="gallery" id="galeria"></div>
+    </section>
+
+    <section class="section card">
+      <h2>⏳ Cuenta regresiva para el próximo mesesito</h2>
+      <div class="countdown">
+        <span class="chip" id="proxima-label">Próxima fecha: …</span>
+        <div class="box"><div class="num" id="d">00</div><div class="lab">días</div></div>
+        <div class="box"><div class="num" id="h">00</div><div class="lab">horas</div></div>
+        <div class="box"><div class="num" id="m">00</div><div class="lab">min</div></div>
+        <div class="box"><div class="num" id="s">00</div><div class="lab">seg</div></div>
+      </div>
+    </section>
+
+    <section class="section card">
+      <h2>🎵 Para ti</h2>
+      <div class="video"><iframe id="video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <p class="muted" style="font-size:12px;margin-top:8px"></p>
+    </section>
+
+    <footer>
+      <p class="muted">Para mi princesita hermosa <span id="nombre-b"></span> — <span id="anio"></span></p>
+    </footer>
+  </div>
+
+  <script>
+    // Utilidades
+    const $ = s => document.querySelector(s);
+    const fmtFechaLarga = iso => new Date(iso+"T00:00:00").toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'});
+    const fmtFechaCorta = iso => new Date(iso+"T00:00:00").toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'});
+
+    // Pinta cabecera
+    $('#titulo').innerHTML = `${CONFIG.parejaA} <span class="accent">♥</span> ${CONFIG.parejaB}`;
+    $('#frase').textContent = CONFIG.fraseCorta;
+    $('#pill-fecha').textContent = 'Desde ' + fmtFechaLarga(CONFIG.fechaEspecial);
+    $('#nombre-b').textContent = CONFIG.parejaB;
+    $('#anio').textContent = new Date().getFullYear();
+
+    // Fotos mini en hero
+    const grid = $('#grid-fotos');
+    CONFIG.fotos.slice(0,6).forEach(src=>{
+      const d = document.createElement('div'); d.className='ph';
+      const img = document.createElement('img'); img.src = src; img.alt='Recuerdo';
+      d.appendChild(img); grid.appendChild(d);
+    });
+
+    // Carta
+    $('#carta-texto').textContent = CONFIG.carta;
+
+    // Timeline
+    const tl = $('#lista-recuerdos');
+    CONFIG.recuerdos.forEach(r=>{
+      const it = document.createElement('div'); it.className='item';
+      it.innerHTML = `<div style="font-weight:600">${r.titulo}</div>
+                      <div class="muted" style="font-size:12px">${fmtFechaCorta(r.fecha)}</div>
+                      <div style="margin-top:6px">${r.detalle}</div>`;
+      tl.appendChild(it);
+    });
+
+    // Galería
+    const gal = $('#galeria');
+    CONFIG.fotos.forEach(src=>{
+      const a = document.createElement('a'); a.href = src; a.target='_blank'; a.rel='noreferrer';
+      const img = document.createElement('img'); img.src = src; img.alt='Foto';
+      a.appendChild(img); gal.appendChild(a);
+    });
+
+    // Playlist
+    $('#video').src = CONFIG.youtubeEmbed;
+
+    // Cuenta regresiva
+    const lbl = $('#proxima-label');
+    lbl.textContent = 'Próxima fecha: ' + fmtFechaLarga(CONFIG.proximaFecha);
+    function tick(){
+      const target = new Date(CONFIG.proximaFecha + 'T00:00:00').getTime();
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+      const ts = Math.floor(diff/1000);
+      const d = Math.floor(ts/86400);
+      const h = Math.floor((ts%86400)/3600);
+      const m = Math.floor((ts%3600)/60);
+      const s = ts%60;
+      $('#d').textContent = String(d).padStart(2,'0');
+      $('#h').textContent = String(h).padStart(2,'0');
+      $('#m').textContent = String(m).padStart(2,'0');
+      $('#s').textContent = String(s).padStart(2,'0');
+    }
+    tick(); setInterval(tick,1000);
+
+    // Corazones flotantes
+    const hearts = document.querySelector('.hearts');
+    function spawnHeart(){
+      const use = document.createElementNS('http://www.w3.org/2000/svg','use');
+      use.setAttributeNS('http://www.w3.org/1999/xlink','href','#heart');
+      use.setAttribute('class','heart');
+      const x = Math.random()*100; use.style.left = x+'vw';
+      use.style.bottom = '-24px';
+      use.style.animationDuration = (6 + Math.random()*6) + 's';
+      use.style.animationDelay = (Math.random()*3) + 's';
+      hearts.appendChild(use);
+      setTimeout(()=>use.remove(),12000);
+    }
+    for(let i=0;i<18;i++) spawnHeart();
+    setInterval(spawnHeart,1200);
+  </script>
+</body>
+</html>
